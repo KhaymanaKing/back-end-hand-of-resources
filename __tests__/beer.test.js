@@ -37,6 +37,7 @@ describe('beer routes', () => {
   });
   it('should add a new beer', async() => {
     const res = await request(app)
+      .post('/beers')
       .send({
         beer_name: 'Test Beer',
         abv: 5,
@@ -46,6 +47,7 @@ describe('beer routes', () => {
       });
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
+      'id': '6',
       'beer_name': 'Test Beer',
       'abv': 5,
       'region': 'Washington',
