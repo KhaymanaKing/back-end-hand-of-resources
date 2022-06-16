@@ -55,7 +55,7 @@ describe('beer routes', () => {
       'pairing': 'Ketchup'
     });
   });
-  it('Should delete add a beer and then delete it', async () => {
+  it('Should add a beer and then delete it', async () => {
     const createRes = await request(app)
       .post('/beers')
       .send({
@@ -77,6 +77,7 @@ describe('beer routes', () => {
     const delRes = await request(app).delete('/beers/6');
     expect(delRes.status).toEqual(200);
     const { body } = await request(app).get('/beers/6');
+    console.log('body', body);
     expect(body).toEqual('');
   });
   afterAll(() => {
