@@ -29,6 +29,22 @@ describe('movie routes', () => {
       'release_year': expect.any(String),
       'director': expect.any(String)
     });
+    it('should add a new movie', async() => {
+      const res = await request(app)
+        .post('movies')
+        .send({
+          title: 'test',
+          release_year: 2020,
+          director: 'test director'
+        });
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({
+        'id': expect.anything(),
+        'title': 'test',
+        'release_year': 2020,
+        'director': 'test director'
+      });
+    });
     
   });
   afterAll(() => {
