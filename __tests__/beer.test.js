@@ -35,6 +35,24 @@ describe('beer routes', () => {
       'pairing': expect.any(String)
     });
   });
+  it('should add a new beer', async() => {
+    const res = await request(app)
+      .send({
+        beer_name: 'Test Beer',
+        abv: 5,
+        region: 'Washington',
+        ibu: 28,
+        pairing: 'Ketchup'
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      'beer_name': 'Test Beer',
+      'abv': 5,
+      'region': 'Washington',
+      'ibu': 28,
+      'pairing': 'Ketchup'
+    });
+  });
   afterAll(() => {
     pool.end();
   });
