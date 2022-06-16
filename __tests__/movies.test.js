@@ -19,6 +19,15 @@ describe('movie routes', () => {
         director: movie.director
       };
     });
+    it('/movies/:id should return a movie by id', async () => {
+      const res = await request(app).get('/movies/1');
+      expect(res.body).toEqual({
+        'id': '1',
+        'title': expect.any(String),
+        release: expect.any(Number),
+        director: expect.any(String)
+      });
+    });
     expect(res.body).toEqual(expected);
   });
   afterAll(() => {

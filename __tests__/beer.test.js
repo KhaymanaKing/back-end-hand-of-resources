@@ -24,8 +24,8 @@ describe('beer routes', () => {
     });
     expect(res.body).toEqual(expected);
   });
-  it('/beers:id should return beer by id', async () => {
-    const res = await request.agent(app).get('/beers/1');
+  it('/beers/:id should return beer by id', async () => {
+    const res = await request(app).get('/beers/1');
     expect(res.body).toEqual({
       'id': '1',
       'beer_name': expect.any(String),
