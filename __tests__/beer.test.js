@@ -79,30 +79,12 @@ describe('beer routes', () => {
     const { body } = await request(app).get('/beers/6');
     expect(body).toEqual('');
   });
-  it('creates new row then modifies the pairing', async () => {
-    const createRes = await request(app)
-      .post('/beers')
-      .send({
-        beer_name: 'Test Beer',
-        abv: 5,
-        region: 'Washington',
-        ibu: 28,
-        pairing: 'Ketchup'
-      });
-    expect(createRes.status).toBe(200);
-    expect(createRes.body).toEqual({
-      'id': expect.anything(),
-      'beer_name': 'Test Beer',
-      'abv': 5,
-      'region': 'Washington',
-      'ibu': 28,
-      'pairing': 'Ketchup'
-    });
+  it('PUT modifies the pairing on select beer', async () => {
     const modRes = await request(app)
-      .put('/beers/6')
-      .send({ pairing: 'Toast' });
+      .put('/beers/2')
+      .send({ beer_name: 'Toast' });
     expect(modRes.status).toBe(200);
-    expect(modRes.body.pairing).toEqual('Toast');
+    expect(modRes.body.beer_name).toEqual('Toast');
   });
   afterAll(() => {
     pool.end();
