@@ -12,7 +12,6 @@ describe('beer routes', () => {
   it('/beers should return a list of beers', async() => {
     const res = await request(app).get('/beers');
     const beers = await Beer.getAll();
-    console.log('beers', beers);
     const expected = beers.map((beer) => {
       return{
         id: beer.id,
@@ -24,6 +23,17 @@ describe('beer routes', () => {
       };
     });
     expect(res.body).toEqual(expected);
+  });
+  it('/beers:id should return beer by id', async () => {
+    const res = await request.agent(app).get('/beers/1');
+    expect(res.body).toEqual({
+      'id': expect.any(String),
+      'beer_name': expect.any(String),
+      'abv': expect.any(Number),
+      'region': expect.any(String),
+      'ibu': expect.any(Number),
+      'pairing': expect.any(String)
+    });
   });
   afterAll(() => {
     pool.end();
