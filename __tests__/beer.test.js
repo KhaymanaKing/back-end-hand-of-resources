@@ -47,13 +47,37 @@ describe('beer routes', () => {
       });
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
-      'id': '6',
+      'id': expect.anything(),
       'beer_name': 'Test Beer',
       'abv': 5,
       'region': 'Washington',
       'ibu': 28,
       'pairing': 'Ketchup'
     });
+  });
+  it('Should delete add a beer and then delete it', async () => {
+    const createRes = await request(app)
+      .post('/beers')
+      .send({
+        beer_name: 'Test Beer',
+        abv: 5,
+        region: 'Washington',
+        ibu: 28,
+        pairing: 'Ketchup'
+      });
+    expect(createRes.status).toBe(200);
+    expect(createRes.body).toEqual({
+      'id': expect.anything(),
+      'beer_name': 'Test Beer',
+      'abv': 5,
+      'region': 'Washington',
+      'ibu': 28,
+      'pairing': 'Ketchup'
+    });
+    const delRes = await request(app).delete('/beers/6');
+    expect(delRes.status).toEqual(200);
+    const { body } = await request(app).get('/beers/6');
+    expect(body).toEqual('');
   });
   afterAll(() => {
     pool.end();
