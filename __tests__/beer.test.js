@@ -2,6 +2,8 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const { Beer } = require('../lib/models/Beer');
+
 
 describe('beer routes', () => {
   beforeEach(() => {
@@ -10,6 +12,7 @@ describe('beer routes', () => {
   it('/beers should return a list of beers', async() => {
     const res = await request(app).get('/beers');
     const beers = await Beer.getAll();
+    console.log('beers', beers);
     const expected = beers.map((beer) => {
       return{
         id: beer.id,
@@ -17,10 +20,10 @@ describe('beer routes', () => {
         abv: beer.abv,
         region: beer.region,
         ibu: beer.ibu,
-        pair: beer.pairing
+        pairing: beer.pairing
       };
     });
-    expect(1).toEqual(1);
+    expect(res.body).toEqual(expected);
   });
   afterAll(() => {
     pool.end();
