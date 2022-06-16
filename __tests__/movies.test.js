@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const { Movie } = require('../lib/models/Movie');
 
-describe('movie routes'), () => {
+describe('movie routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -21,4 +21,7 @@ describe('movie routes'), () => {
     });
     expect(res.body).toEqual(expected);
   });
-};
+  afterAll(() => {
+    pool.end();
+  });
+});
