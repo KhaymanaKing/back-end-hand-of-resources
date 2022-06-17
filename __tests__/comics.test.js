@@ -66,6 +66,13 @@ describe('comic routes', () => {
     const { body } = await request(app).get('/comics/6');
     expect(body).toEqual('');
   });
+  it('modifies the name of a comic', async() => {
+    const res = await request(app)
+      .put('/comics/2')
+      .send({ comic_name: 'test' });
+    expect(res.status).toBe(200);
+    expect(res.body.comic_name).toEqual('test');
+  });
 
   afterAll(() => {
     pool.end();
