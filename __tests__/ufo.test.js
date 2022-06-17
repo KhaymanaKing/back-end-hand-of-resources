@@ -71,7 +71,7 @@ describe('ufo routes', () => {
       .put('/ufos/2')
       .send({ ufo_year: '2020' });
     expect(res.status).toBe(200);
-    expect(res.body.ufo_year).toEqual('2020');
+    expect(res.body.ufo_year).toEqual(2020);
   });
   afterAll(() => {
     pool.end();
