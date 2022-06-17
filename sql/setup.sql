@@ -2,6 +2,7 @@
 -- The SQL in this file will be executed when you run `npm run setup-db`
 DROP TABLE IF EXISTS beers;
 DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS candies;
 
 CREATE TABLE beers (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -16,6 +17,13 @@ CREATE TABLE movies (
     title VARCHAR,
     release_year BIGINT,
     director VARCHAR
+);
+
+CREATE TABLE candies (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    candy_name VARCHAR,
+    chocolate BOOLEAN,
+    taste_rating INT
 );
 
 INSERT INTO beers (
@@ -44,3 +52,16 @@ VALUES
 ('Mortal Kombat','1995', 'Paul W.S. Anderson'),
 ('Ip Man', '2008', 'Wilson Yip'),
 ('The Ritual', '2017', 'David Bruckner');
+
+INSERT INTO candies (
+candy_name,
+chocolate,
+taste_rating
+)
+
+VALUES
+('Butterfinger', 'true', '7'),
+('Charleston Chew', 'false', '8'),
+('Sour Skittles', 'false', '3'),
+('Reeses', 'true', '9'),
+('Rocky-Road', 'true', '10')
