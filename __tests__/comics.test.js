@@ -46,6 +46,27 @@ describe('comic routes', () => {
       'publisher': 'Test'
     });
   });
+  it('should add a new comic and then delete it', async() => {
+    const createRes = await request(app)
+      .post('/comics')
+      .send({
+        comic_name: 'test',
+        original_release: 2020,
+        publisher: 'Test'
+      });
+    expect(createRes.status).toBe(200);
+    expect(createRes.body).toEqual({
+      'id': expect.anything(),
+      'comic_name': 'test',
+      'original_release': 2020,
+      'publisher': 'Test'
+    });
+    const delRes = await request(app).delete('/comics/6');
+    expect(delRes.status).toEqual(200);
+    const { body } = await request(app).get('comics/6');
+    expect(body).toEqual('');
+  });
+
   afterAll(() => {
     pool.end();
   });
