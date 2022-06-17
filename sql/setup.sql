@@ -38,7 +38,7 @@ CREATE TABLE ufos (
 CREATE TABLE comics (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     comic_name VARCHAR, 
-    orginal_release INT,
+    original_release INT,
     publisher VARCHAR
 );
 
@@ -97,7 +97,7 @@ VALUES
 
 INSERT INTO comics (
 comic_name,
-orginal_release,
+original_release,
 publisher
 )
 
