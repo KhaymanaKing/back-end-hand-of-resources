@@ -30,6 +30,22 @@ describe('ufo routes', () => {
       'ufo_year': expect.any(Number)
     });
   });
+  it('should add a new ufo sighting', async() => {
+    const res = await request(app)
+      .post('/ufos')
+      .send({
+        ufo_name: 'test ufo',
+        ufo_location: 'test location',
+        ufo_year: 5
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      'id': expect.anything(),
+      'ufo_name': 'test ufo',
+      'ufo_location': 'test location',
+      'ufo_year': 5
+    });
+  });
 
   afterAll(() => {
     pool.end();
