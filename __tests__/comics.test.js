@@ -21,6 +21,16 @@ describe('comic routes', () => {
     });
     expect(res.body).toEqual(expected);
   });
+  it('/comics/:id should return a single comic', async () => {
+    const res = await request(app).get('/comics/1');
+    expect(res.body).toEqual({
+      'id': '1',
+      'comic_name': expect.any(String),
+      'original_release': expect.any(Number),
+      'publisher': expect.any(String)
+    });
+  });
+  
   afterAll(() => {
     pool.end();
   });
