@@ -66,6 +66,13 @@ describe('movie routes', () => {
     const { body } = await request(app).get('/movies/6');
     expect(body).toEqual('');
   });
+  it('modifies the director of the movie', async() => {
+    const res = await request(app)
+      .put('/movies/2')
+      .send({ director: 'Khayman' });
+    expect(res.status).toBe(200);
+    expect(res.body.director).toEqual('Khayman');
+  });
   afterAll(() => {
     pool.end();
   });
