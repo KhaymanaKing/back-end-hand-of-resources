@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS beers;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS candies;
 DROP TABLE IF EXISTS ufos;
+DROP TABLE IF EXISTS comics;
 
 CREATE TABLE beers (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -32,6 +33,13 @@ CREATE TABLE ufos (
     ufo_name VARCHAR,
     ufo_location VARCHAR,
     ufo_year INT
+);
+
+CREATE TABLE comics (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    comic_name VARCHAR, 
+    orginal_release INT,
+    publisher VARCHAR
 );
 
 INSERT INTO beers (
@@ -85,4 +93,17 @@ VALUES
 ('1561 Celestial Phenoomenon over Nuremberg', 'Nuremberg, Holy Roman Empire', '1561'),
 ('Mystery Airships', 'Otago, New Zealand', '1909'),
 ('Miracle of the Sun', 'Fátima, Santarém District, Portugal', '1917'),
-('Thomas Mantell', 'Kentucky, United States', '1948')
+('Thomas Mantell', 'Kentucky, United States', '1948');
+
+INSERT INTO comics (
+comic_name,
+orginal_release,
+publisher
+)
+
+VALUES 
+('The Invisibles', '1994', 'Vertigo'),
+('Preacher', '1995', 'Vertigo'),
+('Scott Pilgrim', '2004', 'Oni Press'),
+('Samurai Cat', '1984', 'Tor Books'),
+('Soul Plumber', '2021', 'DC')
