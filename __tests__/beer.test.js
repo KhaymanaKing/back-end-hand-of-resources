@@ -1,0 +1,94 @@
+const pool = require('../lib/utils/pool');
+const setup = require('../data/setup');
+const request = require('supertest');
+const app = require('../lib/app');
+const { Beer } = require('../lib/models/Beer');
+
+
+describe('beer routes', () => {
+  beforeEach(() => {
+    return setup(pool);
+  });
+  it('/beers should return a list of beers', async() => {
+    const res = await request(app).get('/beers');
+    const beers = await Beer.getAll();
+    const expected = beers.map((beer) => {
+      return{
+        id: beer.id,
+        beer_name: beer.beer_name,
+        abv: beer.abv,
+        region: beer.region,
+        ibu: beer.ibu,
+        pairing: beer.pairing
+      };
+    });
+    expect(res.body).toEqual(expected);
+  });
+
+  
+  it('/beers/:id should return beer by id', async () => {
+    const res = await request(app).get('/beers/1');
+    expect(res.body).toEqual({
+      'id': '1',
+      'beer_name': expect.any(String),
+      'abv': expect.any(Number),
+      'region': expect.any(String),
+      'ibu': expect.any(Number),
+      'pairing': expect.any(String)
+    });
+  });
+  it('should add a new beer', async() => {
+    const res = await request(app)
+      .post('/beers')
+      .send({
+        beer_name: 'Test Beer',
+        abv: 5,
+        region: 'Washington',
+        ibu: 28,
+        pairing: 'Ketchup'
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      'id': expect.anything(),
+      'beer_name': 'Test Beer',
+      'abv': 5,
+      'region': 'Washington',
+      'ibu': 28,
+      'pairing': 'Ketchup'
+    });
+  });
+  it('Should add a beer and then delete it', async () => {
+    const createRes = await request(app)
+      .post('/beers')
+      .send({
+        beer_name: 'Test Beer',
+        abv: 5,
+        region: 'Washington',
+        ibu: 28,
+        pairing: 'Ketchup'
+      });
+    expect(createRes.status).toBe(200);
+    expect(createRes.body).toEqual({
+      'id': expect.anything(),
+      'beer_name': 'Test Beer',
+      'abv': 5,
+      'region': 'Washington',
+      'ibu': 28,
+      'pairing': 'Ketchup'
+    });
+    const delRes = await request(app).delete('/beers/6');
+    expect(delRes.status).toEqual(200);
+    const { body } = await request(app).get('/beers/6');
+    expect(body).toEqual('');
+  });
+  it('PUT modifies the pairing on select beer', async () => {
+    const modRes = await request(app)
+      .put('/beers/2')
+      .send({ beer_name: 'Toast' });
+    expect(modRes.status).toBe(200);
+    expect(modRes.body.beer_name).toEqual('Toast');
+  });
+  afterAll(() => {
+    pool.end();
+  });
+});
