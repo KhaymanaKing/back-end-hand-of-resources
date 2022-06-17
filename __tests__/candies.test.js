@@ -66,6 +66,14 @@ describe('candy routes', () => {
     const { body } = await request(app).get('/candies/6');
     expect(body).toEqual('');
   });
+  it(' modifies the name of the candy', async() => {
+    const res = await request(app)
+      .put('/candies/1')
+      .send({ candy_name: 'test' });
+    expect(res.status).toBe(200);
+    expect(res.body.candy_name).toEqual('test');
+  });
+
   afterAll(() => {
     pool.end();
   });
