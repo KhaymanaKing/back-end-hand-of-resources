@@ -30,7 +30,22 @@ describe('comic routes', () => {
       'publisher': expect.any(String)
     });
   });
-  
+  it('should add a new comic', async() => {
+    const res = await request(app)
+      .post('/comics')
+      .send({
+        comic_name: 'test',
+        original_release: 2020,
+        publisher: 'Test'
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      'id': expect.anything(),
+      'comic_name': 'test',
+      'original_release': 2020,
+      'publisher': 'Test'
+    });
+  });
   afterAll(() => {
     pool.end();
   });
