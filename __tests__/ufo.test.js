@@ -21,6 +21,15 @@ describe('ufo routes', () => {
     });
     expect(res.body).toEqual(expected);
   });
+  it('/ufos/:id should return ufo sighting by id', async() => {
+    const res = await request(app).get('/ufos/1');
+    expect(res.body).toEqual({
+      'id': 1,
+      'ufo_name': expect.any(String),
+      'ufo_location': expect.any(String),
+      'ufo_year': expect.any(Number)
+    });
+  });
 
   afterAll(() => {
     pool.end();
