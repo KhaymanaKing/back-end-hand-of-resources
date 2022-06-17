@@ -21,6 +21,15 @@ describe('candy routes', () => {
     });
     expect(res.body).toEqual(expected);
   });
+  it('/candies/:id should return one candy', async() => {
+    const res = await request(app).get('/candies/1');
+    expect(res.body).toEqual({
+      'id': '1',
+      'candy_name': expect.any(String),
+      'chocolate': expect.any(Boolean),
+      'taste_rating': expect.any(Number)
+    });
+  });
   afterAll(() => {
     pool.end();
   });
