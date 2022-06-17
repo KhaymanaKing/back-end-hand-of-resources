@@ -30,6 +30,22 @@ describe('candy routes', () => {
       'taste_rating': expect.any(Number)
     });
   });
+  it('should add a new candy', async () => {
+    const res = await request(app)
+      .post('/candies')
+      .send({
+        candy_name: 'test',
+        chocolate: false,
+        taste_rating: 3
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      'id':expect.anything(),
+      'candy_name': 'test',
+      chocolate: false,
+      taste_rating: 3
+    }); 
+  });
   afterAll(() => {
     pool.end();
   });
