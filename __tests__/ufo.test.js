@@ -13,7 +13,7 @@ describe('ufo routes', () => {
     const ufos = await Ufo.getAll();
     const expected = ufos.map((ufo) => {
       return {
-        it: ufo.id,
+        id: ufo.id,
         ufo_name: ufo.ufo_name,
         ufo_location: ufo.ufo_location,
         ufo_year: ufo.ufo_year
