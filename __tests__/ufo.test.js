@@ -46,7 +46,26 @@ describe('ufo routes', () => {
       'ufo_year': 5
     });
   });
-
+  it('should add a new ufo sighting and then delete it', async() => {
+    const createRes = await request(app)
+      .post('/ufos')
+      .send({
+        ufo_name: 'test ufo',
+        ufo_location: 'test location',
+        ufo_year: 5
+      });
+    expect(createRes.status).toBe(200);
+    expect(createRes.body).toEqual({
+      'id': expect.anything(),
+      'ufo_name': 'test ufo',
+      'ufo_location': 'test location',
+      'ufo_year': 5
+    });
+    const delRes = await request(app).delete('/ufos/6');
+    expect(delRes.status).toEqual(200);
+    const { body } = await request(app).get('/ufos/6');
+    expect(body).toEqual('');
+  });
   afterAll(() => {
     pool.end();
   });
