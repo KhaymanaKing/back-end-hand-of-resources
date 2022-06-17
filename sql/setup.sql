@@ -3,6 +3,7 @@
 DROP TABLE IF EXISTS beers;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS candies;
+DROP TABLE IF EXISTS ufos;
 
 CREATE TABLE beers (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -24,6 +25,13 @@ CREATE TABLE candies (
     candy_name VARCHAR,
     chocolate BOOLEAN,
     taste_rating INT
+);
+
+CREATE TABLE ufos (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    ufo_name VARCHAR,
+    ufo_location VARCHAR,
+    ufo_year INT
 );
 
 INSERT INTO beers (
@@ -64,4 +72,17 @@ VALUES
 ('Charleston Chew', 'false', '8'),
 ('Sour Skittles', 'false', '3'),
 ('Reeses', 'true', '9'),
-('Rocky-Road', 'true', '10')
+('Rocky-Road', 'true', '10');
+
+INSERT INTO ufos ( 
+ufo_name,
+ufo_location,
+ufo_year
+)
+
+VALUES
+('Ships in the Sky', 'Rome, Italy', '218'),
+('1561 Celestial Phenoomenon over Nuremberg', 'Nuremberg, Holy Roman Empire', '1561'),
+('Mystery Airships', 'Otago, New Zealand', '1909'),
+('Miracle of the Sun', 'Fátima, Santarém District, Portugal', '1917'),
+('Thomas Mantell', 'Kentucky, United States', '1948')
