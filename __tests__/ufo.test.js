@@ -66,6 +66,13 @@ describe('ufo routes', () => {
     const { body } = await request(app).get('/ufos/6');
     expect(body).toEqual('');
   });
+  it('modifies the year of the ufo sighting', async() => {
+    const res = await request(app)
+      .put('/ufos/2')
+      .send({ ufo_year: '2020' });
+    expect(res.status).toBe(200);
+    expect(res.body.ufo_year).toEqual('2020');
+  });
   afterAll(() => {
     pool.end();
   });
