@@ -63,7 +63,7 @@ describe('comic routes', () => {
     });
     const delRes = await request(app).delete('/comics/6');
     expect(delRes.status).toEqual(200);
-    const { body } = await request(app).get('comics/6');
+    const { body } = await request(app).get('/comics/6');
     expect(body).toEqual('');
   });
 
