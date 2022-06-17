@@ -46,6 +46,26 @@ describe('candy routes', () => {
       taste_rating: 3
     }); 
   });
+  it('should add a candy and then delete it', async() => {
+    const createRes = await request(app)
+      .post('/candies')
+      .send({
+        candy_name: 'test',
+        chocolate: false,
+        taste_rating: 3
+      });
+    expect(createRes.status).toBe(200);
+    expect(createRes.body).toEqual({
+      'id':expect.anything(),
+      'candy_name': 'test',
+      chocolate: false,
+      taste_rating: 3
+    });
+    const delRes = await request(app).delete('/candies/6');
+    expect(delRes.status).toBe(200);
+    const { body } = await request(app).get('/candies/6');
+    expect(body).toEqual('');
+  });
   afterAll(() => {
     pool.end();
   });
